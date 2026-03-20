@@ -57,7 +57,7 @@ Object_t* Number_dump(const Object_t* obj, FILE* file){
     if(!file) file = stdout;
     if(!obj) RUN_TIME_ERROR("no object");
     Number_t* n = (Number_t*)obj;
-    fprintf(file, "%.2lf\n", n->value);
+    fprintf(file, "%.2lf", n->value);
     return (Object_t*)obj; // TODO: what to do with the const??
 }
 Object_t* Number_add(const Object_t* obj1, const Object_t* obj2){
@@ -152,7 +152,7 @@ Object_t* Bool_dump(const Object_t* obj, FILE* file){
     if(!file) file = stdout;
     if(!obj) RUN_TIME_ERROR("no object");
     Bool_t* b = (Bool_t*)obj;
-    fprintf(file, "%s\n", b->value ? "True" : "False");
+    fprintf(file, "%s", b->value ? "True" : "False");
     return (Object_t*)obj; // TODO: what to do with the const??
 }
 Object_t* Bool_add(const Object_t* obj1, const Object_t* obj2){
@@ -247,7 +247,7 @@ Object_t* String_dump(const Object_t* obj, FILE* file){
     if(!file) file = stdout;
     if(!obj)  RUN_TIME_ERROR("no object");
     String_t* s = (String_t*)obj;
-    fprintf(file, "%s\n", s->value ? s->value : "(null)");
+    fprintf(file, "%s", s->value ? s->value : "(null)");
     return (Object_t*)obj; // TODO: what to do with the const??
 }
 Object_t* String_add(const Object_t* obj1, const Object_t* obj2){

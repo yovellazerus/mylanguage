@@ -3,13 +3,31 @@
 #include "../inc/list.h"
 #include "../inc/lexer.h"
 #include "../inc/object.h"
+#include "../inc/node.h"
+
+Node_t* Add(Node_t* lhs, Node_t* rhs){ return BinaryOp(lhs, rhs, "+");}
+Node_t* Sub(Node_t* lhs, Node_t* rhs){ return BinaryOp(lhs, rhs, "-");}
+Node_t* Mul(Node_t* lhs, Node_t* rhs){ return BinaryOp(lhs, rhs, "*");}
+Node_t* Div(Node_t* lhs, Node_t* rhs){ return BinaryOp(lhs, rhs, "/");}
+Node_t* Mod(Node_t* lhs, Node_t* rhs){ return BinaryOp(lhs, rhs, "%");}
+Node_t* Or(Node_t* lhs, Node_t* rhs) { return BinaryOp(lhs, rhs, "||");}
+Node_t* And(Node_t* lhs, Node_t* rhs){ return BinaryOp(lhs, rhs, "&&");}
+Node_t* Xor(Node_t* lhs, Node_t* rhs){ return BinaryOp(lhs, rhs, "^^");}
+
+void ast_dot(const Node_t* root, FILE* file){
+    if(!root) return;
+    if(!file) file = stdout;
+    dot_nid = 0;
+    fprintf(file, "digraph AST {\n");
+    _(root, _dot, file);
+    fprintf(file, "}\n");
+}
 
 // =============================================================================
 // main
 // =============================================================================
 
-int main()
-{
+void test0(void){
     Object_t* n = Number(3.14);
     Object_t* b = Bool(true);
     
@@ -35,13 +53,13 @@ int main()
     FILE* out = fopen(outpath, "w");
     if(!out){
         perror(outpath);
-        return 1;
+        return;
     }
     
     lexer_t* lex = lexer_create(inpath);
     if(!lex){
         perror(inpath);
-        return 1;
+        return;
     }
     list_t* tokens = lexer_lexall(lex);
     list_dump(tokens, out);
@@ -49,6 +67,22 @@ int main()
     list_destroy(tokens);
     lexer_destroy(lex);
     fclose(out);
+}
+
+int main()
+{
+    Node_t* root = Add(
+                        Sub(
+                            Literal(Number(3)),
+                            Literal(Number(2))
+                        ),
+
+                        Literal(Number(-2.5))
+                    );
+
+    ast_dot(root, stdout);
+    Object_t* res = _(root, _eval);
+    _(res, _dump, stdout);
 
 	return 0;
 }

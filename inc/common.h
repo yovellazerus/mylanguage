@@ -54,10 +54,25 @@
 #define COLOR_BG_BRIGHT_CYAN    "\033[106m"
 #define COLOR_BG_BRIGHT_WHITE   "\033[107m"
 
-#define RUN_TIME_ERROR(msg, ...) do {                                                           \
+#define PARSER_ERROR(msg, ...) do                                                             \
+{                                                                                               \
+    parser_error(msg, ##__VA_ARGS__);                                                         \
+    fprintf(stderr, "in file: \"%s\", function: \"%s\", line: %u\n" COLOR_RESET,                \
+                        __FILE__,           __func__,   __LINE__);                              \
+} while(0)
+
+#define RUN_TIME_ERROR(msg, ...) do                                                             \
+{                                                                                               \
     run_time_error(msg, ##__VA_ARGS__);                                                         \
     fprintf(stderr, "in file: \"%s\", function: \"%s\", line: %u\n" COLOR_RESET,                \
                         __FILE__,           __func__,   __LINE__);                              \
+} while(0)
+
+#define TODO() do                                                                               \
+{                                                                                               \
+    fprintf(stderr, "TODO: function: \"%s\" in file: \"%s\" is not implemented.\n",             \
+                                    __func__,       __FILE__);                                  \
+    exit(1);                                                                                    \
 } while(0)
 
 #define _(this, method, ...) (this->vt->method ? this->vt->method(this, ##__VA_ARGS__) : NULL)
@@ -65,5 +80,6 @@
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
 void run_time_error(const char* msg, ...);
+void parser_error(const char* msg, ...);
 
 #endif // COMMON_H_

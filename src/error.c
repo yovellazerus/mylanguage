@@ -9,3 +9,12 @@ void run_time_error(const char* msg, ...){
 	fprintf(stderr, "` ");
     va_end(args);
 }
+
+void parser_error(const char* msg, ...){
+    va_list args;
+    va_start(args, msg);
+	fprintf(stderr, COLOR_RED "PARSER ERROR: `");
+	vfprintf(stderr, msg, args);
+	fprintf(stderr, "` ");
+    va_end(args);
+}
