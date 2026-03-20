@@ -3,10 +3,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #include <stdarg.h>
+#include <ctype.h>
 
 // Reset
 #define COLOR_RESET        "\033[0m"
@@ -61,6 +61,8 @@
 } while(0)
 
 #define _(this, method, ...) (this->vt->method ? this->vt->method(this, ##__VA_ARGS__) : NULL)
+
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
 void run_time_error(const char* msg, ...);
 

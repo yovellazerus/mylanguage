@@ -1,0 +1,12 @@
+
+x = 3
+  pi := 3.14
+
+  foo = "hello world!"
+
+  y = 2  # this is a comment!
+
+z = x + y
+
+  ? z
+  
