@@ -54,9 +54,9 @@
 #define COLOR_BG_BRIGHT_CYAN    "\033[106m"
 #define COLOR_BG_BRIGHT_WHITE   "\033[107m"
 
-#define PARSER_ERROR(msg, ...) do                                                             \
+#define PARSER_ERROR(msg, ...) do                                                               \
 {                                                                                               \
-    parser_error(msg, ##__VA_ARGS__);                                                         \
+    parser_error(msg, ##__VA_ARGS__);                                                           \
     fprintf(stderr, "in file: \"%s\", function: \"%s\", line: %u\n" COLOR_RESET,                \
                         __FILE__,           __func__,   __LINE__);                              \
 } while(0)
@@ -75,7 +75,7 @@
     exit(1);                                                                                    \
 } while(0)
 
-#define _(this, method, ...) (this->vt->method ? this->vt->method(this, ##__VA_ARGS__) : NULL)
+#define _(this, method, ...) (this->vt->method ? this->vt->method(this, ##__VA_ARGS__) : 0)
 
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 

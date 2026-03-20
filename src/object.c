@@ -86,16 +86,20 @@ Object_t* Number_div(const Object_t* obj1, const Object_t* obj2){
     return Number(a->value / b->value);
 }
 Object_t* Number_mod(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type Number");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type Number"); return NULL;
 }
 Object_t* Number_or(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type Number");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type Number"); return NULL;
 }
 Object_t* Number_and(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type Number");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type Number"); return NULL;
 }
 Object_t* Number_xor(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type Number");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type Number"); return NULL;
 }
 
 // =============================================================================
@@ -156,19 +160,24 @@ Object_t* Bool_dump(const Object_t* obj, FILE* file){
     return (Object_t*)obj; // TODO: what to do with the const??
 }
 Object_t* Bool_add(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type Bool");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type Bool"); return NULL;
 }
 Object_t* Bool_sub(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type Bool");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type Bool"); return NULL;
 }
 Object_t* Bool_mul(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type Bool");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type Bool"); return NULL;
 }
 Object_t* Bool_div(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type Bool");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type Bool"); return NULL;
 }
 Object_t* Bool_mod(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type Bool");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type Bool"); return NULL;
 }
 Object_t* Bool_or(const Object_t* obj1, const Object_t* obj2){
     if(!obj1 || !obj2) RUN_TIME_ERROR("no object");
@@ -259,7 +268,7 @@ Object_t* String_add(const Object_t* obj1, const Object_t* obj2){
     size_t nn = na + nb;
     char* tmp = malloc(nn + 1);
     if(!tmp) RUN_TIME_ERROR("no system memory");
-    int i;
+    size_t i;
     for(i = 0; i < na; i++){
         tmp[i] = a->value[i];
     }
@@ -272,23 +281,30 @@ Object_t* String_add(const Object_t* obj1, const Object_t* obj2){
     return res;
 }
 Object_t* String_sub(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type String");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type String"); return NULL;
 }
 Object_t* String_mul(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type String");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type String"); return NULL;
 }
 Object_t* String_div(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type String");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type String"); return NULL;
 }
 Object_t* String_mod(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type String");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type String"); return NULL;
 }
 Object_t* String_or(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type String");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type String"); return NULL;
 }
 Object_t* String_and(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type String");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type String"); return NULL;
 }
 Object_t* String_xor(const Object_t* obj1, const Object_t* obj2){
-    RUN_TIME_ERROR("not sported for type String");
+    (void)obj1;(void)obj2;
+    RUN_TIME_ERROR("not sported for type String"); return NULL;
 }

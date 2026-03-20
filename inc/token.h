@@ -13,31 +13,26 @@ and not according to their syntactic meaning.
 */
 // NOTE: TYPE_err must be last!
 #define TOKEN_TYPE_LIST(X) \
-    X(TYPE_eof)            \
-    X(TYPE_num)            \
-    X(TYPE_str)            \
-    X(TYPE_name)           \
-    X(TYPE_plus)           \
-    X(TYPE_minus)          \
-    X(TYPE_asterisk)       \
-    X(TYPE_slash)          \
-    X(TYPE_percent)        \
-    X(TYPE_qmark)          \
-    X(TYPE_eq)             \
-    X(TYPE_collneq)        \
-    X(TYPE_err)
+    X(eof)            \
+    X(num)            \
+    X(str)            \
+    X(name)           \
+    X(plus)           \
+    X(minus)          \
+    X(asterisk)       \
+    X(slash)          \
+    X(percent)        \
+    X(qmark)          \
+    X(eq)             \
+    X(collneq)        \
+    X(err)            \
+    X(TYPE_COUNT)
 
 typedef enum {
-#define X(name) name,
+#define X(name) TOKEN_##name,
     TOKEN_TYPE_LIST(X)
 #undef X
 } token_type_t;
-
-static const char* type_to_cstr[] = {
-#define X(name) [name] = #name,
-    TOKEN_TYPE_LIST(X)
-#undef X
-};
 
 typedef struct token_t {
     token_type_t type;

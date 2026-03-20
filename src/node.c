@@ -125,6 +125,7 @@ Object_t* BinaryOp_eval(const Node_t* node){
     else{
         RUN_TIME_ERROR("unkown binary operation: \"%s\"", op);
     }
+    return NULL;
 }
 
 int BinaryOp_dot(const Node_t* node, FILE* file){

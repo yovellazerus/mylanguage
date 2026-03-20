@@ -25,11 +25,11 @@ enum Node_type_t {
 #undef X
 };
 
-static const char* Node_type_to_cstr[] = {
-#define X(name) [NODE_##name] = #name,
-	NODE_LIST(X)
-#undef X
-};
+// static const char* Node_type_to_cstr[] = {
+// #define X(name) [NODE_##name] = #name,
+// 	NODE_LIST(X)
+// #undef X
+// };
 
 // =============================================================================
 // Node_t

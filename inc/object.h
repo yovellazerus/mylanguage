@@ -27,11 +27,13 @@ enum Object_type_t {
 #undef X
 };
 
-static const char* Object_type_to_cstr[] = {
-#define X(name) [OBJECT_##name] = #name,
-	OBJECT_LIST(X)
-#undef X
-};
+// static const char* Object_type_to_cstr[] = {
+// #define X(name) [OBJECT_##name] = #name,
+// 	OBJECT_LIST(X)
+// #undef X
+// };
+
+const char* Object_get_type(const Object_t* obj);
 
 // =============================================================================
 // Object_t

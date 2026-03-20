@@ -1,6 +1,12 @@
 
 #include "../inc/token.h"
 
+static const char* Token_type_to_cstr[] = {
+#define X(name) [TOKEN_##name] = #name,
+    TOKEN_TYPE_LIST(X)
+#undef X
+};
+
 token_t* token_create(token_type_t type, char* idnf, size_t row, size_t col, const char* file){
     if(!idnf || !file) return NULL;
     token_t* res = malloc(sizeof(*res));
@@ -32,9 +38,9 @@ void token_dump(const void* t, FILE* f){
 
     const token_t* tt = (const token_t*)t;
 
-    const char* type_str = type_to_cstr[tt->type] ?
-                           type_to_cstr[tt->type] :
-                           type_to_cstr[TYPE_err];
+    const char* type_str = Token_type_to_cstr[tt->type] ?
+                           Token_type_to_cstr[tt->type] :
+                           Token_type_to_cstr[TOKEN_TYPE_COUNT];
 
     fprintf(f,
         "\n[ %-12s | %-12s | (%3zu, %3zu) | %s ]",
@@ -44,5 +50,5 @@ void token_dump(const void* t, FILE* f){
         tt->col,
         tt->file
     );
-    if(tt->type == TYPE_eof) fprintf(f, ",\n");
+    if(tt->type == TOKEN_TYPE_COUNT) fprintf(f, ",\n");
 }

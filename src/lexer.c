@@ -109,7 +109,7 @@ token_t* lexer_lexnum(lexer_t* lex){
     char* buf = strndup(start_ptr, len);
     if(!buf) return NULL;
 
-    token_t* res = token_create(TYPE_num, buf, lex->row, lex->col, lex->file_name);
+    token_t* res = token_create(TOKEN_num, buf, lex->row, lex->col, lex->file_name);
     free(buf);
 
     lex->end += len;
@@ -137,7 +137,7 @@ token_t* lexer_lexstr(lexer_t* lex){
         if(lex->src[lex->end] == '\n'){
             // strings cannot span lines (for now)
             char* err = strndup(lex->src + start, lex->end - start);
-            token_t* res = token_create(TYPE_err, err ? err : "", row, col, lex->file_name);
+            token_t* res = token_create(TOKEN_err, err ? err : "", row, col, lex->file_name);
             free(err);
             return res;
         }
@@ -149,7 +149,7 @@ token_t* lexer_lexstr(lexer_t* lex){
     // EOF before closing quote → error
     if(lex->src[lex->end] != '"'){
         char* err = strndup(lex->src + start, lex->end - start);
-        token_t* res = token_create(TYPE_err, err ? err : "", row, col, lex->file_name);
+        token_t* res = token_create(TOKEN_err, err ? err : "", row, col, lex->file_name);
         free(err);
         return res;
     }
@@ -160,7 +160,7 @@ token_t* lexer_lexstr(lexer_t* lex){
     char* buf = strndup(lex->src + start, len);
     if(!buf) return NULL;
 
-    token_t* res = token_create(TYPE_str, buf, row, col, lex->file_name);
+    token_t* res = token_create(TOKEN_str, buf, row, col, lex->file_name);
     free(buf);
 
     // skip closing quote
@@ -191,7 +191,7 @@ token_t* lexer_lexname(lexer_t* lex){
     char* buf = strndup(lex->src + start, len);
     if(!buf) return NULL;
 
-    token_t* res = token_create(TYPE_name, buf, lex->row, col, lex->file_name);
+    token_t* res = token_create(TOKEN_name, buf, lex->row, col, lex->file_name);
     free(buf);
 
     lex->start = lex->end;
@@ -207,55 +207,55 @@ token_t* lexer_lexop(lexer_t* lex){
     switch (c) {
 
         case '+':
-            res = token_create(TYPE_plus, "+", lex->row, lex->col, lex->file_name);
+            res = token_create(TOKEN_plus, "+", lex->row, lex->col, lex->file_name);
             lex->end++;
             lex->col++;
             break;
 
         case '-':
-            res = token_create(TYPE_minus, "-", lex->row, lex->col, lex->file_name);
+            res = token_create(TOKEN_minus, "-", lex->row, lex->col, lex->file_name);
             lex->end++;
             lex->col++;
             break;
 
         case '*':
-            res = token_create(TYPE_asterisk, "*", lex->row, lex->col, lex->file_name);
+            res = token_create(TOKEN_asterisk, "*", lex->row, lex->col, lex->file_name);
             lex->end++;
             lex->col++;
             break;
 
         case '/':
-            res = token_create(TYPE_slash, "/", lex->row, lex->col, lex->file_name);
+            res = token_create(TOKEN_slash, "/", lex->row, lex->col, lex->file_name);
             lex->end++;
             lex->col++;
             break;
 
         case '%':
-            res = token_create(TYPE_percent, "%", lex->row, lex->col, lex->file_name);
+            res = token_create(TOKEN_percent, "%", lex->row, lex->col, lex->file_name);
             lex->end++;
             lex->col++;
             break;
 
         case '?':
-            res = token_create(TYPE_qmark, "?", lex->row, lex->col, lex->file_name);
+            res = token_create(TOKEN_qmark, "?", lex->row, lex->col, lex->file_name);
             lex->end++;
             lex->col++;
             break;
 
         case '=':
-            res = token_create(TYPE_eq, "=", lex->row, lex->col, lex->file_name);
+            res = token_create(TOKEN_eq, "=", lex->row, lex->col, lex->file_name);
             lex->end++;
             lex->col++;
             break;
 
         case ':':
             if(lex->src[lex->end + 1] == '='){
-                res = token_create(TYPE_collneq, ":=", lex->row, lex->col, lex->file_name);
+                res = token_create(TOKEN_collneq, ":=", lex->row, lex->col, lex->file_name);
                 lex->end += 2;
                 lex->col += 2;
             } else {
                 char tmp[2] = {c, '\0'};
-                res = token_create(TYPE_err, tmp, lex->row, lex->col, lex->file_name);
+                res = token_create(TOKEN_err, tmp, lex->row, lex->col, lex->file_name);
                 lex->end++;
                 lex->col++;
             }
@@ -263,7 +263,7 @@ token_t* lexer_lexop(lexer_t* lex){
 
         default: {
             char tmp[2] = {c, '\0'};
-            res = token_create(TYPE_err, tmp, lex->row, lex->col, lex->file_name);
+            res = token_create(TOKEN_err, tmp, lex->row, lex->col, lex->file_name);
             lex->end++;
             lex->col++;
             break;
@@ -275,8 +275,6 @@ token_t* lexer_lexop(lexer_t* lex){
 }
 token_t* lexer_nextok(lexer_t* lex){
     if(!lex) return NULL;
-    token_t* res = NULL;
-    
     
     while(lex->src[lex->end]){
         
@@ -314,7 +312,7 @@ token_t* lexer_nextok(lexer_t* lex){
     }
     
     // end of the surce file
-    return token_create(TYPE_eof, "<EOF>", lex->row, lex->col, lex->file_name);
+    return token_create(TOKEN_eof, "<EOF>", lex->row, lex->col, lex->file_name);
 }
 // main lexer function
 list_t*  lexer_lexall(lexer_t* lex){
@@ -326,7 +324,7 @@ list_t*  lexer_lexall(lexer_t* lex){
     do{
         tok = lexer_nextok(lex); // list_push will not push if null
         list_push(res, tok);
-    } while(tok->type != TYPE_eof);
+    } while(tok->type != TOKEN_eof);
     
     return res;
 }
